@@ -1,6 +1,6 @@
 import numpy as np
 
-class ExtinctionCurve:
+class SMCExtinction:
     
     from astropy import units as u
     """
