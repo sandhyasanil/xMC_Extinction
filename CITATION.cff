@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "xMC_Extinction: R(V)-dependent analytic extinction curves for SMC, LMC and LMC2 dust"
+message: "If you use this software, please cite both the software and the paper below."
+type: software
+authors:
+  - given-names: Sandhya
+    family-names: Sanil Kumar
+    affiliation: "Indian Institute of Space Science and Technology, Thiruvananthapuram"
+  - given-names: Vikram
+    family-names: Khaire
+    affiliation: "Indian Institute of Technology, Tirupati"
+repository-code: "https://github.com/sandhyasanil/xMC_Extinction"
+license: MIT
+version: "1.0.0"
+date-released: "YYYY-MM-DD"        # set at release
+doi: "10.5281/zenodo.XXXXXXX"      # mint a Zenodo DOI at release
+preferred-citation:
+  type: article
+  title: "Analytic expression for the Small and Large Magellanic Cloud extinction curves"
+  authors:
+    - given-names: Sandhya
+      family-names: Sanil Kumar
+    - given-names: Vikram
+      family-names: Khaire
+  journal: "The Open Journal of Astrophysics"
+  year: 2026

@@ -1,42 +1,40 @@
-"""
-Example usage of the ExtinctionCurve model.
-"""
-# Append parent directory to sys.path for imports
-import sys
-import os
+"""Minimal example: evaluate and plot the three Magellanic Cloud extinction curves.
 
-sys.path.append(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-)
+Run from the repository root:
+    python examples/sample.py
+"""
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import numpy as np
 import matplotlib.pyplot as plt
-from model import ExtinctionCurve
-from astropy import units as u
 
+from SMC import SMCExtinction
+from LMC import LMCExtinction
+from LMC2 import LMC2Extinction
 
-# Example wavelength grid (inverse micron)
-x = np.linspace(1.0, 8.0, 500)*u.micron**-1
+# Wavenumber grid in inverse microns.  A bare array is interpreted as
+# micron^-1; an astropy Quantity with length or wavenumber units also works, e.g.
+#     import astropy.units as u
+#     x = np.linspace(1200, 20000, 500) * u.AA
+x = np.linspace(0.3, 8.7, 500)
 
-# Instantiate the model
-curve_1 = ExtinctionCurve(x, rv=3.4)
-curve_2 = ExtinctionCurve(x, rv=2.74)
-curve_3 = ExtinctionCurve(x, rv=2.0)
+fig, ax = plt.subplots(figsize=(7, 5))
+for cls, colour in [(SMCExtinction, "tab:red"),
+                    (LMCExtinction, "tab:blue"),
+                    (LMC2Extinction, "tab:green")]:
+    curve = cls(x)                      # default R(V) reproduces the average curve
+    ax.plot(x, curve.evaluate(), color=colour,
+            label=f"{cls.NAME}, R(V) = {curve.rv:g}")
+    for rv, ls in [(cls.RV_RANGE[0], "--"), (cls.RV_RANGE[1], ":")]:
+        ax.plot(x, cls.axav(x, rv), color=colour, ls=ls, lw=1, alpha=0.6,
+                label=f"{cls.NAME}, R(V) = {rv:g}")
 
-
-# Compute extinction curve
-k_1 = curve_1.evaluate()
-k_2 = curve_2.evaluate()
-k_3 = curve_3.evaluate()
-# Plot
-plt.figure()
-plt.plot(x, k_1, label=r'$R_V$=3.4')
-plt.plot(x, k_2, label=r'$R_V$=2.74')
-plt.plot(x, k_3, label=r'$R_V$=2.0')
-plt.xlabel(r"1/$\lambda$ ($\mu$m$^{-1}$)")
-plt.ylabel(r"A($\lambda$)/A(V)")
-plt.title("Example Extinction Curve")
-plt.grid()
-plt.legend()
+ax.set_xlabel(r"$x$ ($\mu$m$^{-1}$)")
+ax.set_ylabel(r"$A(\lambda)/A(V)$")
+ax.legend(frameon=False, fontsize=9)
+ax.set_title("xMC_Extinction curves")
+fig.tight_layout()
 plt.show()
-
