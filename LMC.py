@@ -49,4 +49,4 @@ class LMCExtinction(BaseMCExtinction):
     GAMMA = 0.3309
     RV_DEFAULT = 3.41
     X_RANGE = (0.3, 8.7)
-    RV_RANGE = (2.8, 4.0)      # range actually spanned by the LMC sample
+    RV_RANGE = (3.15, 3.96)      # range actually spanned by the LMC sample

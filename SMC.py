@@ -24,4 +24,4 @@ class SMCExtinction(BaseMCExtinction):
     GAMMA = 0.0714
     RV_DEFAULT = 3.02
     X_RANGE = (0.3, 8.7)
-    RV_RANGE = (2.0, 5.2)
+    RV_RANGE = (2.0, 5.6)

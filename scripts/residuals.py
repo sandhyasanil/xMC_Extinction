@@ -18,13 +18,13 @@ import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-
+import matplotlib as mpl
 from paperlib import FAMILIES, RESULTS, FIGURES, model_class, sightlines
 from _common import OPT_BREAK
 
-GRID = np.arange(3.35, 8.75, 0.15)
+GRID = np.arange(3.35, 8.05, 0.15)     # stop at x = 8, the stated validity limit
 HALF = 0.075
-FLAG = {"SMC": ["azv214", "mr12-star09"]}     # see the paper's outlier discussion
+FLAG = {"SMC": ["azv214", "smc5-000398", "mr12-star09"]}   # model failures + data-quality case (Sec. 5.3)
 
 
 def profiles(fam, exclude_flagged=True):
@@ -49,19 +49,30 @@ def profiles(fam, exclude_flagged=True):
 
 
 def run():
-    fig, axes = plt.subplots(1, 3, figsize=(11, 3.6), sharey=True)
+    font = {'family': 'sans', 'weight': 'normal', 'size': 20} #Set font type to sans-serif, normal font (not bold) and font size.
+    plt.rc('font', **font) #Setting the plot parameters to the ones we've set above
+    mpl.rcParams['axes.linewidth'] = 1.5 #Here we set the line width of the axes.
+    figure_size = [18, 6] #Figure size. 
+    fig, axes = plt.subplots(1, 3, figsize=(figure_size[0], figure_size[1]), sharey=True)
+    fig.subplots_adjust(wspace=0.12)
     out = []
     for ax, fam, col in zip(axes, FAMILIES, ["tab:red", "tab:blue", "tab:green"]):
+        for axis in ['top','bottom','left','right']:
+            ax.spines[axis].set_linewidth(1.5)
         g, med, lo, hi, C = profiles(fam)
         for c in C:
             ax.plot(g, c, color="0.75", lw=0.6, alpha=0.8)
         ax.fill_between(g, lo, hi, color=col, alpha=0.25, lw=0)
-        ax.plot(g, med, color=col, lw=2)
+        ax.plot(g, med, color=col, lw=2.5)
         ax.axhline(0, color="k", lw=0.8, ls=":")
         ax.set_xlabel(r"$x$ ($\mu$m$^{-1}$)")
-        ax.set_title(f"{fam}  (n = {C.shape[0]})")
-        ax.tick_params(direction="in", which="both")
-        ax.set_ylim(-1.0, 1.0)
+        ax.set_title(f"{fam}  (n = {C.shape[0]})", fontsize = 20)
+        ax.tick_params(direction='in', length=5, width=1.5)
+        ax.tick_params(direction='in', which='minor', length=3.5, width=1.5)
+        
+        ax.yaxis.set_ticks_position('both')
+        ax.xaxis.set_ticks_position('both')
+        ax.set_ylim(-1.1, 1.1)
         for i, xc in enumerate(g):
             out.append(dict(family=fam, x=xc, median=med[i], p16=lo[i], p84=hi[i]))
     axes[0].set_ylabel(r"$A(x)/A(V)$  observed $-$ model")
@@ -69,6 +80,7 @@ def run():
     RESULTS.mkdir(exist_ok=True); FIGURES.mkdir(exist_ok=True)
     pd.DataFrame(out).to_csv(RESULTS / "residual_profiles.csv", index=False)
     fig.savefig(FIGURES / "residuals_vs_wavelength.png", dpi=200)
+    fig.savefig(FIGURES / "residuals_vs_wavelength.pdf")
     print(f"wrote {FIGURES / 'residuals_vs_wavelength.png'}")
 
     t = pd.DataFrame(out)

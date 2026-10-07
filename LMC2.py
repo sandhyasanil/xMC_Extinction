@@ -29,4 +29,4 @@ class LMC2Extinction(BaseMCExtinction):
     GAMMA = 0.1856
     RV_DEFAULT = 2.76          # reproduces the G03 LMC2 average (reduced chi2 = 1.1)
     X_RANGE = (0.3, 8.7)
-    RV_RANGE = (1.7, 3.5)
+    RV_RANGE = (1.68, 3.41)

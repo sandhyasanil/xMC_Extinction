@@ -19,9 +19,9 @@ def run():
         c = model_class(fam)
         d = average_curve(fam)
         lo, hi = c.RV_RANGE
-        ax.plot(xg, c.axav(xg, lo), color=col, lw=1, ls="--", alpha=0.7,
-                label=f"R(V) = {lo:g}")
-        ax.plot(xg, c.axav(xg, hi), color=col, lw=1, ls=":", alpha=0.7,
+        ax.plot(xg, c.axav(xg, lo), color=col, lw=1.5, ls="--", alpha=0.7,
+                label=f"R(V) = {lo:g}")  # lower end of calibrating sample
+        ax.plot(xg, c.axav(xg, hi), color=col, lw=1.5, ls=":", alpha=0.7,
                 label=f"R(V) = {hi:g}")
         ax.plot(xg, c.axav(xg, c.RV_DEFAULT), color="k", lw=1.8,
                 label=f"this work, R(V) = {c.RV_DEFAULT:g}")
@@ -29,6 +29,7 @@ def run():
                     color=col, alpha=0.85, label="average curve data")
         ax.set_xlabel(r"$x$ ($\mu$m$^{-1}$)")
         ax.set_title(fam)
+        ax.axvspan(8.0, 9.0, color="0.92", zorder=0)
         ax.set_xlim(0, 9); ax.set_ylim(0, 7)
         ax.tick_params(direction="in", which="both")
         ax.legend(frameon=False, fontsize=8, loc="upper left")
@@ -36,6 +37,7 @@ def run():
     fig.tight_layout()
     FIGURES.mkdir(exist_ok=True)
     fig.savefig(FIGURES / "average_curves.png", dpi=200)
+    fig.savefig(FIGURES / "average_curves.pdf")
     print(f"wrote {FIGURES / 'average_curves.png'}")
 
 

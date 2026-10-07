@@ -78,17 +78,16 @@ def rv_recovery():
     import rv_recovery as m
     m.run()
 
-
-def leave_one_out():
-    """Out-of-sample test of the SMC calibration."""
-    import smc_leave_one_out
-    smc_leave_one_out.run()
-
-
 def residuals():
     """Residual of each sightline from the model, as a function of wavelength."""
     import residuals as m
     m.run()
+
+
+def curves_figure():
+    """Figure of the three prescriptions with their average-curve data."""
+    import plot_curves
+    plot_curves.run()
 
 
 def tables():
@@ -102,11 +101,13 @@ STAGES = {
     "averages": average_curves,
     "fixed_rv": fixed_rv_tests,
     "recovery": rv_recovery,
-    "loo": leave_one_out,
+    # "loo": leave_one_out,
     "residuals": residuals,
+    "curves": curves_figure,
+    # "bumps": bump_test,
     "tables": tables,
 }
-ORDER = ["models", "averages", "fixed_rv", "recovery", "loo", "residuals", "tables"]
+ORDER = ["models", "averages", "fixed_rv", "recovery", "residuals", "curves", "tables"]
 
 
 def main():
