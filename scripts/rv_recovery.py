@@ -21,6 +21,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 
 from paperlib import FAMILIES, RESULTS, FIGURES, model_class, sightlines, fit_rv
 from _common import ccm89
@@ -85,25 +86,45 @@ def run():
 
 
 def _figure(t):
-    fig, axes = plt.subplots(1, 3, figsize=(11, 3.9), sharey=False)
-    for ax, fam, col in zip(axes, FAMILIES, ["tab:red", "tab:blue", "tab:green"]):
+    font = {'family': 'sans', 'weight': 'normal', 'size': 19.5} #Set font type to sans-serif, normal font (not bold) and font size.
+    plt.rc('font', **font) #Setting the plot parameters to the ones we've set above
+    mpl.rcParams['axes.linewidth'] = 1.5 #Here we set the line width of the axes. 
+    figure_size = [18, 6] #Figure size. 
+    fig, axes = plt.subplots(1, 3, figsize=(figure_size[0], figure_size[1]), sharey=False)
+    fig.subplots_adjust(wspace=0.12)
+    for ax, fam, col, diff, edge in zip(axes, FAMILIES, ["tab:red", "tab:blue", "tab:green"], [0.5, 0.5, 0.5], ["maroon", "mediumblue", "darkgreen"]):
         g = t[t.family == fam]
-        lim = [min(g.rv_pub.min(), g.rv_uv.min()) - 0.3, max(g.rv_pub.max(), g.rv_uv.max()) + 0.3]
-        ax.plot(lim, lim, "k--", lw=0.8, alpha=0.6)
-        ax.errorbar(g.rv_pub, g.rv_uv, xerr=g.rv_pub_err, fmt="o", color=col,
-                    ms=5, lw=1, label="UV only")
-        ax.plot(g.rv_pub, g.rv_opt, "^", mfc="none", mec="k", ms=6, label="optical/NIR only")
-        ax.set_xlim(lim); ax.set_ylim(lim)
-        ax.set_title(fam)
-        ax.set_xlabel("published R(V)")
-        ax.tick_params(direction="in", which="both")
+        lim_lower_value = min(g.rv_pub.min(), g.rv_uv.min()) - diff
+        lim_upper_value = max(g.rv_pub.max(), g.rv_uv.max()) + diff
         if fam == "SMC":
-            ax.set_ylabel("fitted R(V)")
-            ax.legend(frameon=False, fontsize=8, loc="upper left")
+            lim_upper_value= 6.5
+            lim_lower_value = 0.7
+        lim = [lim_lower_value, lim_upper_value]
+        lim_upper = [lim_lower_value+0.1*lim_lower_value, lim_upper_value+0.1*lim_upper_value]
+        lim_lower = [lim_lower_value-0.1*lim_lower_value, lim_upper_value-0.1*lim_upper_value]
+        ax.plot(lim, lim, "k--", lw=2.5, alpha=0.6, zorder = 0)
+        ax.fill_between(lim, lim_upper, lim_lower, color = col, alpha = 0.2)
+        # ax.plot(lim, lim_upper, "k--", lw=2, alpha=0.6, zorder = 0)
+        # ax.plot(lim, lim_lower, "k--", lw=2, alpha=0.6, zorder = 0)
+        ax.errorbar(g.rv_pub, g.rv_uv, xerr=g.rv_pub_err, fmt="o", color=col,
+                    ms=8.5, lw=1, label="UV only", zorder = 1, mec = edge, mew = 1.5)
+        ax.plot(g.rv_pub, g.rv_opt, "^", mfc="none", mec="k", ms=9, label="Optical-NIR only", mew = 1.5, zorder = 2)
+        ax.set_xlim(lim) 
+        ax.set_ylim(lim)
+        # ax.set_title(fam)
+        ax.set_xlabel("Photometric R(V)")
+        ax.tick_params(direction='in', length=5, width=1.5)
+        ax.tick_params(direction='in', which='minor', length=3.5, width=1.5)
+
+        ax.yaxis.set_ticks_position('both')
+        ax.xaxis.set_ticks_position('both')
+        if fam == "SMC":
+            ax.set_ylabel("Fitted R(V)")
+            ax.legend(frameon=False, loc = "lower right")
     fig.tight_layout()
     FIGURES.mkdir(exist_ok=True)
-    fig.savefig(FIGURES / "rv_recovery.png", dpi=200)
-    print(f"\nwrote {FIGURES / 'rv_recovery.png'}")
+    fig.savefig(FIGURES /"rv_recovery.pdf", bbox_inches="tight")
+    print(f"\nwrote {FIGURES / 'rv_recovery.pdf'}")
 
 
 if __name__ == "__main__":

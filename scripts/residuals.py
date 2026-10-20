@@ -24,7 +24,8 @@ from _common import OPT_BREAK
 
 GRID = np.arange(3.35, 8.05, 0.15)     # stop at x = 8, the stated validity limit
 HALF = 0.075
-FLAG = {"SMC": ["azv214", "smc5-000398", "mr12-star09"]}   # model failures + data-quality case (Sec. 5.3)
+# FLAG = {"SMC": ["azv214", "smc5-000398", "mr12-star09"]}   # model failures + data-quality case (Sec. 5.3)
+FLAG = {"SMC": ["azv214", "smc5-000398"]}   # model failures + data-quality case (Sec. 5.3)
 
 
 def profiles(fam, exclude_flagged=True):

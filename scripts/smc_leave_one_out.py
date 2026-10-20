@@ -24,12 +24,15 @@ Outputs
 results/smc_leave_one_out.csv
 figures/smc_leave_one_out.png
 """
+# from tkinter import font
+
 import numpy as np
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+import matplotlib as mpl
 
 from paperlib import RESULTS, FIGURES, sightlines, fit_rv, red_chi2
 from _common import A_BREAK, B_BREAK, OPT_BREAK
@@ -149,21 +152,30 @@ def run():
           f"within 10%: {(t.d_insample.abs() < 10).sum()}/{len(t)}")
     print(f"LOO median reduced chi2 at published R(V) = {t.chi2_loo_fixed.median():.3f}")
 
-    fig, ax = plt.subplots(figsize=(5.0, 5.0))
-    lim = [1.7, 6.2]
+    font = {'family': 'sans', 'weight': 'normal', 'size': 15} #Set font type to sans-serif, normal font (not bold) and font size.
+    plt.rc('font', **font) #Setting the plot parameters to the ones we've set above
+    mpl.rcParams['axes.linewidth'] = 1.5 #Here we set the line width of the axes.
+    figure_size = [7, 6] #Figure size.
+    fig, ax = plt.subplots(figsize=(figure_size[0], figure_size[1]))
+    lim = [1.1, 5.5]
+    for axis in ['top','bottom','left','right']:
+        ax.spines[axis].set_linewidth(1.5)
     ax.plot(lim, lim, "k--", lw=0.8, alpha=0.6)
-    ax.errorbar(t.rv_pub, t.rv_loo, xerr=t.rv_pub_err, fmt="o", color="tab:red", ms=5, lw=1,
+    ax.errorbar(t.rv_pub, t.rv_loo, xerr=t.rv_pub_err, fmt="o", color="tab:red", ms=7, lw=1,
                 label="leave-one-out")
-    ax.plot(t.rv_pub, t.rv_insample, "^", mfc="none", mec="k", ms=6, label="in-sample")
+    ax.plot(t.rv_pub, t.rv_insample, "^", mfc="none", mec="k", ms=8, label="in-sample")
     ax.set_xlim(lim); ax.set_ylim(lim)
-    ax.set_xlabel("published R(V)  (Gordon et al. 2024)")
-    ax.set_ylabel("R(V) recovered from the UV")
-    ax.legend(frameon=False, fontsize=9)
-    ax.tick_params(direction="in", which="both")
+    ax.set_xlabel("Photometric R(V)")
+    ax.set_ylabel(r"R(V)$_{\text{UV}}$")
+    ax.legend(frameon=False)
+    ax.tick_params(direction='in', length=5, width=1.5)
+    ax.tick_params(direction='in', which='minor', length=3.5, width=1.5)
+    ax.yaxis.set_ticks_position('both')
+    ax.xaxis.set_ticks_position('both')
     fig.tight_layout()
     FIGURES.mkdir(exist_ok=True)
-    fig.savefig(FIGURES / "smc_leave_one_out.png", dpi=200)
-    print(f"wrote {FIGURES / 'smc_leave_one_out.png'}")
+    fig.savefig("LaTeX/MC_Extinction/figs/smc_leave_one_out.pdf", bbox_inches="tight")
+    print(f"wrote {FIGURES / 'smc_leave_one_out.pdf'}")
     return t
 
 

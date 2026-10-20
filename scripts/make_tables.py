@@ -51,9 +51,9 @@ def table2():
             rv_bestfit=p[0], rv_bestfit_err=float(np.sqrt(cov[0, 0])),
             redchi2_all=red_chi2(y, c.axav(x, c.RV_DEFAULT), e, 1),
             redchi2_uv=red_chi2(y[uv], c.axav(x[uv], c.RV_DEFAULT), e[uv], 1),
-            redchi2_all_nolargest=_drop_worst(y, c.axav(x, c.RV_DEFAULT), e),
             worst_point_x=float(x[np.argmax(((y - c.axav(x, c.RV_DEFAULT)) / e) ** 2)]),
-            worst_point_chi2frac=_worst_frac(y, c.axav(x, c.RV_DEFAULT), e)))
+            worst_point_chi2frac=_worst_frac(y, c.axav(x, c.RV_DEFAULT), e),
+            redchi2_all_nolargest=_drop_worst(y, c.axav(x, c.RV_DEFAULT), e)))
     t = pd.DataFrame(rows)
     t.to_csv(RESULTS / "table2_average_fits.csv", index=False)
     with open(RESULTS / "table2_average_fits.tex", "w") as f:
@@ -64,6 +64,7 @@ def table2():
                                     "$\\chi^2$ it contributes."),
                            label="tab:avg"))
     return t
+
 
 
 def _resid2(y, m, e):
