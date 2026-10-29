@@ -27,8 +27,7 @@ pip install -r requirements.txt
 ```
 
 Dependencies: `numpy`, `scipy`, `matplotlib`, `pandas`.
-`astropy` is optional (only if you want to pass `Quantity` inputs);
-`openpyxl` is needed only by `scripts/build_data.py`.
+`astropy` is optional (only if you want to pass `Quantity` inputs).
 
 ---
 
@@ -84,7 +83,7 @@ extrapolation.
 by construction and has no physical content outside the range spanned by the
 calibrating sample.
 
-**What is and is not refitted.** Only the ultraviolet segment (x > 3.3 μm⁻¹)
+**What is refitted.** Only the ultraviolet segment (x > 3.3 μm⁻¹)
 differs between families. The near-infrared power law and the optical polynomial
 are the CCM89 Milky Way forms, adopted unchanged; they are shared by all three
 classes and live in `_common.py`.
@@ -108,7 +107,6 @@ The second regenerates every table and figure:
 | `averages` | fits to the published average curves | `results/table1_*`, `table2_*` |
 | `fixed_rv` | goodness of fit at the published R(V), **zero free parameters** | `results/fixed_rv_chi2*.csv`, `figures/fixed_rv_chi2.png` |
 | `recovery` | R(V) from the full curve vs UV-only vs optical-only, plus the Milky Way null model | `results/rv_recovery*.csv`, `figures/rv_recovery.png` |
-| `loo` | leave-one-out recalibration of the SMC | `results/smc_leave_one_out.csv`, `figures/smc_leave_one_out.png` |
 | `residuals` | residual versus wavelength | `results/residual_profiles.csv`, `figures/residuals_vs_wavelength.png` |
 | `tables` | every table as CSV and LaTeX | `results/table*.csv`, `results/table*.tex` |
 
@@ -121,7 +119,7 @@ Run a single stage with `python reproduce_paper.py --stage fixed_rv`.
 | file | origin |
 |---|---|
 | `data/smc_average_g24.csv` | SMC Average curve, Gordon et al. (2024) |
-| `data/smc_sightlines/*.csv` | Gordon et al. (2024) extinction curves (Zenodo 11187458), converted to A(x)/A(V) and quality-cut at 15 per cent fractional uncertainty. The cut removes the J, H and K photometry, whose fractional errors are large |
+| `data/smc_sightlines/*.csv` | Gordon et al. (2024) extinction curves (Zenodo 11187458), converted to A(x)/A(V) and quality-cut at 15 per cent fractional uncertainty. The cut removes the J, H and K photometry, whose fractional errors are large. Sightline MR12 Star 09 data is binned to a resolution of 10 Å. |
 | `data/lmc_average_g03.csv`, `data/lmc2_average_g03.csv` | Gordon et al. (2003), Tables 4 and 5 |
 | `data/lmc_sightlines/*.csv`, `data/lmc2_sightlines/*.csv` | **digitised from the figures of Gordon et al. (2003)**; no uncertainties are available, so these fits are unweighted |
 | `data/*_published_rv.csv` | R(V) from Gordon et al. (2003) (χ² fit of the RIJHK extinction to Rieke & Lebofsky 1985) and Gordon et al. (2024) |
@@ -130,11 +128,10 @@ Run a single stage with `python reproduce_paper.py --stage fixed_rv`.
 
 ## Limitations
 
-- The SMC calibration uses 16 sightlines and is **in-sample**; `reproduce_paper.py --stage loo` quantifies how much of the performance survives leave-one-out.
-- The LMC and LMC2 coefficients were obtained by fitting the average curve and then adjusting the coefficients so that the fitted sightline R(V) values matched the published ones. Their R(V) comparisons are therefore calibration residuals, **not independent validation**.
+- The SMC, LMC and LMC2 coefficients were obtained by fitting the average curve and then adjusting the coefficients so that the fitted sightline R(V) values matched the published ones. Their R(V) comparisons are therefore calibration residuals, **not independent validation**.
 - The LMC sample spans only R(V) ≈ 3.15–3.96, which is too narrow to constrain an R(V) dependence.
 - Fitted LMC2 sightline R(V) values are systematically low with respect to the Gordon et al. (2003) photometric scale.
-- Two SMC sightlines (AzV 214, MR12 Star 09) are not described by the relation; MR12 Star 09 has a published R(V) uncertainty of ±1.9 and should not be used as a test case.
+- Two SMC sightlines (AzV 214, SMC-5 398) are not described by the relation; MR12 Star 09 has an unusual pattern of uncertainties and is thus binned to a resolution of 10 Å for use.
 
 ---
 
