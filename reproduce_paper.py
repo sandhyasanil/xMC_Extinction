@@ -101,10 +101,8 @@ STAGES = {
     "averages": average_curves,
     "fixed_rv": fixed_rv_tests,
     "recovery": rv_recovery,
-    # "loo": leave_one_out,
     "residuals": residuals,
     "curves": curves_figure,
-    # "bumps": bump_test,
     "tables": tables,
 }
 ORDER = ["models", "averages", "fixed_rv", "recovery", "residuals", "curves", "tables"]
