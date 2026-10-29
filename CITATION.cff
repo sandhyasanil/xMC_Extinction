@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: "xMC_Extinction: R(V)-dependent analytic extinction curves for SMC, LMC and LMC2 dust"
-message: "If you use this software, please cite both the software and the paper below."
+message: "If you use this, please cite the software."
 type: software
 authors:
   - given-names: Sandhya
@@ -12,15 +12,78 @@ authors:
 repository-code: "https://github.com/sandhyasanil/xMC_Extinction"
 license: MIT
 version: "1.0.0"
-date-released: "YYYY-MM-DD"        # set at release
-doi: "10.5281/zenodo.XXXXXXX"      # mint a Zenodo DOI at release
-preferred-citation:
-  type: article
-  title: "Analytic expression for the Small and Large Magellanic Cloud extinction curves"
-  authors:
-    - given-names: Sandhya
-      family-names: Sanil Kumar
-    - given-names: Vikram
-      family-names: Khaire
-  journal: "The Open Journal of Astrophysics"
-  year: 2026
+date-released: "2026-10-30"       
+abstract: "This package contains code to compute V-band normalised extinction for LMC, LMC2 (LMC Supershell), and SMC dust for a given R(V). The models are developed using the Cardelli et al. (1989) framework and data from Gordon et al. (2003) for the LMC and LMC2 and Gordon et al. (2024) for the SMC. Each model takes two inputs: wavenumber (x=1/λ) in units of inverse microns and R(V), and returns the corresponding A(λ)/A(V). The model is valid for x values ranging from 0.455 to 8 μm⁻¹ (2.2 μm to 1250 Å) and R(V) values from 2 to 5.6 for the SMC, 3.15 to 3.96 for the LMC and 1.68 to 3.41 for the LMC2."
+keywords:
+  - interstellar dust
+  - extinction curves
+  - Magellanic Clouds
+references:
+  - type: article
+    authors:
+      - family-names: "Gordon"
+        given-names: "Karl D."
+      - family-names: "Fitzpatrick"
+        given-names: "E. L."
+      - family-names: "Massa"
+        given-names: "Derck"
+      - family-names: "Bohlin"
+        given-names: "Ralph"
+      - family-names: "Chastenet"
+        given-names: "Jérémy"
+      - family-names: "Murray"
+        given-names: "Claire E."
+      - family-names: "Clayton"
+        given-names: "Geoffrey C."
+      - family-names: "Lennon"
+        given-names: "Daniel J."
+      - family-names: "Misselt"
+        given-names: "Karl A."
+      - family-names: "Sandstrom"
+        given-names: "Karin"
+    title: "Expanded Sample of Small Magellanic Cloud Ultraviolet Dust Extinction Curves: Correlations between the 2175 Å Bump, q_PAH, Ultraviolet Extinction Shape, and N(H I)/A(V)"
+    journal: "The Astrophysical Journal"
+    year: 2024
+    month: 7
+    volume: 970
+    issue: 1
+    start: 51
+    doi: "10.3847/1538-4357/ad4be1"
+
+  - type: article
+    authors:
+      - family-names: "Gordon"
+        given-names: "Karl D."
+      - family-names: "Clayton"
+        given-names: "Geoffrey C."
+      - family-names: "Misselt"
+        given-names: "Karl A."
+      - family-names: "Landolt"
+        given-names: "Arlo U."
+      - family-names: "Wolff"
+        given-names: "Michael J."
+    title: "A Quantitative Comparison of the Small Magellanic Cloud, Large Magellanic Cloud, and Milky Way Ultraviolet to Near-Infrared Extinction Curves"
+    journal: "The Astrophysical Journal"
+    year: 2003
+    month: 9
+    volume: 594
+    issue: 1
+    start: 279
+    end: 293
+    doi: "10.1086/376774"
+    
+  - type: article
+    authors:
+      - family-names: "Cardelli"
+        given-names: "Jason A."
+      - family-names: "Clayton"
+        given-names: "Geoffrey C."
+      - family-names: "Mathis"
+        given-names: "John S."
+    title: "The Relationship between Infrared, Optical, and Ultraviolet Extinction"
+    journal: "The Astrophysical Journal"
+    year: 1989
+    month: 10
+    volume: 345
+    start: 245
+    doi: "10.1086/167900"
