@@ -73,7 +73,7 @@ corresponding *published average curve*, not the nominal R(V) of some other
 sample. For the SMC that value, 3.02, is also the R(V) quoted by Gordon et al.
 (2024) for their SMC Average curve.
 
-**Wavelength range.** 0.3 ≤ x ≤ 8.7 μm⁻¹ (≈ 1150–33000 Å). The prescription is
+**Wavelength range.** 0.455 ≤ x ≤ 8 μm⁻¹ (≈ 1250–22000 Å). The prescription is
 calibrated against data over roughly 3.3–8.6 μm⁻¹ in the ultraviolet; beyond
 x ≈ 8 μm⁻¹ the sightline-to-sightline scatter about the relation becomes
 comparable to the extinction itself, and results there should be treated as
