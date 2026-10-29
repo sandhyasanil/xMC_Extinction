@@ -7,12 +7,11 @@ functional form of Cardelli, Clayton & Mathis (1989, CCM).
 The standard Magellanic Cloud extinction curves (Gordon et al. 2003, 2024) are
 parameterised with FM90, which is defined only in the ultraviolet, so they exist
 as *fixed templates*: they can be adopted, but not fitted to a new sightline.
-This package provides continuous curves over 1200–20000 Å in which R(V) acts as
+This package provides continuous curves over 1250–22000 Å in which R(V) acts as
 a single shape parameter, so that a Magellanic-type curve can be fitted to an
 individual sightline.
 
-Accompanying paper: Sanil Kumar & Khaire (2026), *The Open Journal of
-Astrophysics* (link and DOI to be added on acceptance).
+Accompanying paper: Sanil Kumar & Khaire (2026) (in preparation).
 
 ---
 
@@ -47,7 +46,7 @@ length or wavenumber units is also accepted:
 
 ```python
 import astropy.units as u
-SMCExtinction(np.linspace(1200, 20000, 500) * u.AA, rv=3.1).evaluate()
+SMCExtinction(np.linspace(1250, 22000, 500) * u.AA, rv=3.1).evaluate()
 ```
 
 A class method is available if you do not want to build an object:
