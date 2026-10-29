@@ -1,9 +1,5 @@
 """residuals.py -- residual of each sightline from the model, versus wavelength.
 
-Replaces the six-panel delta-vs-delta scatter figures (Figs 11, 18, 19 of the
-draft) with a single figure per family that shows directly where in wavelength
-the one-parameter description succeeds and where it degrades.
-
 Residual definition:   R(x) = A(x)/A(V)|observed  -  A(x)/A(V)|model(R(V)_published)
 i.e. the model is evaluated at the independently published R(V), with no fitted
 parameters, so the residuals are not artificially flattened by a fit.

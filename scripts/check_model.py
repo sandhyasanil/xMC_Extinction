@@ -1,7 +1,7 @@
 """check_model.py -- diagnostics for the analytic curves.
 
 Run:  python scripts/check_model.py
-Checks (all must pass before the paper is submitted):
+Checks:
   1. continuity of a(x) and b(x) at the 3.3 micron^-1 breakpoint
   2. absence of a visible jump in A(x)/A(V) across the breakpoint
   3. the LMC coefficient b1 is the continuity-preserving value

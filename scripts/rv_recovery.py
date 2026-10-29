@@ -1,9 +1,5 @@
 """rv_recovery.py -- where does the R(V) information come from?
 
-This is the analysis prompted by K. Gordon's question (2026 April 8): if the
-R(V) signal is mostly in the optical/NIR, an optical/NIR-only fit should recover
-the published R(V) as well as, or better than, the full fit.
-
 For every sightline we fit R(V) three times, to
     (a) the full curve,
     (b) the ultraviolet only   (x > 3.3 micron^-1),

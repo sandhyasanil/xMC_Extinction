@@ -1,13 +1,15 @@
 cff-version: 1.2.0
 title: "xMC_Extinction: R(V)-dependent analytic extinction curves for SMC, LMC and LMC2 dust"
-message: "If you use this, please cite the software."
+message: "If you use this software, please cite it."
 type: software
 authors:
   - given-names: Sandhya
     family-names: Sanil Kumar
+    orcid: "https://orcid.org/0009-0007-6557-3044"
     affiliation: "Indian Institute of Space Science and Technology, Thiruvananthapuram"
   - given-names: Vikram
     family-names: Khaire
+    orcid: "https://orcid.org/0000-0002-8433-5099"
     affiliation: "Indian Institute of Technology, Tirupati"
 repository-code: "https://github.com/sandhyasanil/xMC_Extinction"
 license: MIT

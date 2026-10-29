@@ -3,8 +3,7 @@
 All three Magellanic Cloud curves in this package share, by construction, the
 Cardelli, Clayton & Mathis (1989, CCM) near-infrared and optical segments
 (x <= 3.3 micron^-1).  Only the ultraviolet segment (x > 3.3 micron^-1) differs
-between the SMC, LMC and LMC2 families.  Keeping the shared part in one place
-guarantees that the three classes cannot drift apart.
+between the SMC, LMC and LMC2 families.
 """
 from __future__ import annotations
 
